@@ -68,7 +68,7 @@ def one_rule(data, test):
     for row in data:
         print(row)
     print("best rule = " + str(rule))
-    print(str(test) + " : " + str(result))
+    print("sample "+str(test)+" class: "+ str(result))
     print("------------------------------------------------------------")
 
 

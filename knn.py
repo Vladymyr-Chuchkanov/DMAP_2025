@@ -62,7 +62,7 @@ def knn(data, test, k=2):
         classes[target]+=sorted_data[i][-1]
 
     print(classes)
-    print(max(classes,key=classes.get))
+    print("sample "+str(test)+" class: "+str(max(classes,key=classes.get)))
     print("----------------------------------------------")
 
 for i in range(len(data_variants)):

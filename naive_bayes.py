@@ -20,11 +20,13 @@ test_variants = [test1, test2, test3, test4]
 def calculate_probabilities(data, laplas_smoothing_coef):
     friction_tables = {}
     class_table = {}
-    all_third_level_keys = set()
+    all_third_level_keys = {}
 
     for row in data:
         for i in range(len(row) - 1):
-            all_third_level_keys.add(row[i])
+            if i not in all_third_level_keys.keys():
+                all_third_level_keys[i]=set()
+            all_third_level_keys[i].add(row[i])
 
     for row in data:
         target = row[-1]
@@ -40,9 +42,10 @@ def calculate_probabilities(data, laplas_smoothing_coef):
             if target not in friction_tables[i].keys():
                 friction_tables[i][target] = {}
 
-            for key in all_third_level_keys:
-                if key not in friction_tables[i][target]:
-                    friction_tables[i][target][key] = 0
+            for el in all_third_level_keys[i]:
+                if el not in friction_tables[i][target]:
+                    friction_tables[i][target][el] = 0
+
 
             friction_tables[i][target][row[i]] += 1
 
@@ -86,7 +89,8 @@ def naive_bayes(data, test, laplas_smoothing_coef = 0.1):
     probability_table,classes = calculate_probabilities(data, laplas_smoothing_coef)
     class_probabilities = use_naive_bayes(probability_table, classes, test)
     print(class_probabilities)
-    print("class = "+str(max(class_probabilities,key=class_probabilities.get)))
+    print("sample "+str(test)+" class = "+str(max(class_probabilities, key=class_probabilities.get)))
+    print("-------------------------------------")
 
 
 for i in range(len(data_variants)):

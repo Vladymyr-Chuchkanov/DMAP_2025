@@ -99,7 +99,7 @@ def decision_tree(data, test):
     tree = build_tree(data, Q)
     print_tree(tree)
     result = use_tree(tree, test)
-    print(result)
+    print("sample "+str(test)+" class: "+str(result))
     print("-------------------------------------------")
 
 
