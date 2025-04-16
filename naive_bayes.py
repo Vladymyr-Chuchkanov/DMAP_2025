@@ -21,13 +21,11 @@ def calculate_probabilities(data, laplas_smoothing_coef):
     friction_tables = {}
     class_table = {}
     all_third_level_keys = {}
-
     for row in data:
         for i in range(len(row) - 1):
             if i not in all_third_level_keys.keys():
                 all_third_level_keys[i]=set()
             all_third_level_keys[i].add(row[i])
-
     for row in data:
         target = row[-1]
         if target not in class_table.keys():
@@ -45,14 +43,7 @@ def calculate_probabilities(data, laplas_smoothing_coef):
             for el in all_third_level_keys[i]:
                 if el not in friction_tables[i][target]:
                     friction_tables[i][target][el] = 0
-
-
             friction_tables[i][target][row[i]] += 1
-
-
-
-    print(friction_tables)
-    print(class_table)
     for feature_name, class_feature_val_table in friction_tables.items():
         for class_name, feature_val_table in class_feature_val_table.items():
             check = False
